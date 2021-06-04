@@ -8,3 +8,8 @@ This is a faster version of [adjclust](https://cran.r-project.org/package=adjclu
 * removes expensive checking code
 
 For a `sparseMatrix`  similarity matrix of 10K SNPs, `adjClustFast` can be 10X faster then the original `adjclust`, while using less memory. 	  
+
+## Install
+```
+devtools::install_github("GabrielHoffman/adjClustFast")
+```
