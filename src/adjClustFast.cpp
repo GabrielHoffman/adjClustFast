@@ -2,8 +2,12 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-
-// #include <omp.h>
+#if defined(_OPENMP)
+#include <omp.h>
+extern const bool parallelism_enabled = true;
+#else
+extern const bool parallelism_enabled = false;
+#endif
 
 // write RcppExports.R with: 
 //       Rcpp::compileAttributes(".")
@@ -33,13 +37,12 @@ arma::SpMat<double> matL_sparse(const arma::SpMat<double> & Csq, const int & h) 
 	int p = Csq.n_rows;
 	arma::SpMat<double> out(p, h+1);
 
-	int k;
-	double value;
-
-	// omp_set_num_threads(4) ;
-	// #pragma omp parallel for               
+	#pragma omp parallel for if(parallelism_enabled)              
 	for( int i=0; i<p; i++){
-		k = 0;
+
+		int k = 0;
+		double value;
+
 		for( int j=i; j<std::min(i+h+1,p); j++){
 			if(k == 0){
 				out(i,k) = 1;
@@ -63,13 +66,12 @@ arma::mat matL_full(const arma::mat & Csq, const int & h) {
 	int p = Csq.n_rows;
 	arma::mat out(p, h+1);
 
-	int k;
-	double value;
-
-	// omp_set_num_threads(4) ;
-	// #pragma omp parallel for               
+	#pragma omp parallel for if(parallelism_enabled)                  
 	for( int i=0; i<p; i++){
-		k = 0;
+		
+		int k = 0;
+		double value;
+
 		for( int j=i; j<std::min(i+h+1,p); j++){
 			if(k == 0){
 				out(i,k) = 1;
@@ -95,13 +97,12 @@ arma::SpMat<double> matR_sparse(const arma::SpMat<double> & Csq, const int & h) 
 	int p = Csq.n_rows;
 	arma::SpMat<double> out(p, h+1);
 
-	int k;
-	double value;
-
-	// omp_set_num_threads(4) ;
-	// #pragma omp parallel for   
+	#pragma omp parallel for if(parallelism_enabled)    
 	for( int i=0; i<p; i++){
-		k = 0;
+		
+		int k = 0;
+		double value;
+
 		for( int j=i; j>=std::max(i-h, (int) 0); j--){
 		  if(k == 0){
 		    out(p-i-1,k) = 1;
@@ -125,13 +126,12 @@ arma::mat matR_full(const arma::mat & Csq, const int & h) {
 	int p = Csq.n_rows;
 	arma::mat out(p, h+1);
 
-	int k;
-	double value;
-
-	// omp_set_num_threads(4) ;
-	// #pragma omp parallel for   
+	#pragma omp parallel for if(parallelism_enabled)    
 	for( int i=0; i<p; i++){
-		k = 0;
+		
+		int k = 0;
+		double value;
+		
 		for( int j=i; j>=std::max(i-h, (int) 0); j--){
 		  if(k == 0){
 		    out(p-i-1,k) = 1;

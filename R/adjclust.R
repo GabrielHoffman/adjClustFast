@@ -121,7 +121,7 @@ adjClustFast.dgeMatrix <- function(mat, type = c("similarity", "dissimilarity"),
   } else {
     mat <- forceSymmetric(mat)
   }
-  res <- adjClust(mat, type = type, h = h)
+  res <- adjClustFast(mat, type = type, h = h)
   return(res)
 }
 
@@ -143,7 +143,7 @@ adjClustFast.dgCMatrix <- function(mat, type = c("similarity", "dissimilarity"),
   } else {
     mat <- forceSymmetric(mat)
   }
-  res <- adjClust(mat, type = type, h = h)
+  res <- adjClustFast(mat, type = type, h = h)
   return(res)
 }
 
@@ -166,7 +166,7 @@ adjClustFast.dgTMatrix <- function(mat, type = c("similarity", "dissimilarity"),
   } else {
     mat <- forceSymmetric(mat)
   }
-  res <- adjClust(mat, type = type, h = h)
+  res <- adjClustFast(mat, type = type, h = h)
   return(res)
 }
 

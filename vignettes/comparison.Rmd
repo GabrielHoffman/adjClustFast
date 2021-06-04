@@ -1,0 +1,90 @@
+
+---
+title: "Compare adjclust and adjClustFast"
+subtitle: ''
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r Sys.time()`"
+documentclass: article
+output: 
+  html_document:
+  toc: true
+  smart: false
+vignette: >
+  %\VignetteIndexEntry{Decorrelate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+<!--- 
+
+rmarkdown::render("comparison.Rmd");
+
+--->
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning=FALSE,
+  message=FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png", "pdf"),
+  cache = FALSE)
+```
+
+
+## Simulation code
+```{r code}
+library(Matrix)
+library(adjClustFast)
+
+# Create correlation matrix with autocorrelation
+autocorr.mat <- function(p = 100, rho = 0.9) {
+    mat <- diag(p)
+    return(rho^abs(row(mat)-col(mat)))
+}
+
+# Simulate correlation matrix
+set.seed(1)
+n = 400 # number of samples
+p = 500 # number of features per block
+n_blocks = 2^5
+
+# create correlation matrix
+Sigma = autocorr.mat(p, .95)
+for( i in 1:log2(n_blocks)){
+    Sigma = bdiag(Sigma, Sigma)
+}
+```
+
+Simulated correlation matrix has `r nrow(Sigma)` features.
+
+### Run `adjClust`
+```{r test1}
+# Run adjClust
+system.time({
+	hcl = adjClust(Sigma, h=3000)
+	})
+```
+
+### Run `adjClustFast`
+```{r test2}
+# Run adjClustFast
+system.time({
+	hcl2 = adjClustFast(Sigma, h=3000)
+	})
+```
+
+```{r equal}
+# test that results are equal
+all.equal(hcl, hcl2)
+```
+
+
+
+
+
