@@ -1,5 +1,6 @@
-// [[Rcpp::depends("RcppArmadillo")]]
+#define ARMA_64BIT_WORD 1
 #include <RcppArmadillo.h>
+// [[Rcpp::depends("RcppArmadillo")]]
 // #include <omp.h>
 
 // write RcppExports.R with: 
