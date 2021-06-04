@@ -6,55 +6,63 @@
 
 using namespace Rcpp;
 
-// rcpparma_hello_world
-arma::mat rcpparma_hello_world();
-RcppExport SEXP _adjClustFast_rcpparma_hello_world() {
+// matL_sparse
+arma::SpMat<double> matL_sparse(const arma::SpMat<double>& Csq, const int& h);
+RcppExport SEXP _adjClustFast_matL_sparse(SEXP CsqSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpparma_hello_world());
+    Rcpp::traits::input_parameter< const arma::SpMat<double>& >::type Csq(CsqSEXP);
+    Rcpp::traits::input_parameter< const int& >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(matL_sparse(Csq, h));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_outerproduct
-arma::mat rcpparma_outerproduct(const arma::colvec& x);
-RcppExport SEXP _adjClustFast_rcpparma_outerproduct(SEXP xSEXP) {
+// matL_full
+arma::mat matL_full(const arma::mat& Csq, const int& h);
+RcppExport SEXP _adjClustFast_matL_full(SEXP CsqSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_outerproduct(x));
+    Rcpp::traits::input_parameter< const arma::mat& >::type Csq(CsqSEXP);
+    Rcpp::traits::input_parameter< const int& >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(matL_full(Csq, h));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_innerproduct
-double rcpparma_innerproduct(const arma::colvec& x);
-RcppExport SEXP _adjClustFast_rcpparma_innerproduct(SEXP xSEXP) {
+// matR_sparse
+arma::SpMat<double> matR_sparse(const arma::SpMat<double>& Csq, const int& h);
+RcppExport SEXP _adjClustFast_matR_sparse(SEXP CsqSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_innerproduct(x));
+    Rcpp::traits::input_parameter< const arma::SpMat<double>& >::type Csq(CsqSEXP);
+    Rcpp::traits::input_parameter< const int& >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(matR_sparse(Csq, h));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_bothproducts
-Rcpp::List rcpparma_bothproducts(const arma::colvec& x);
-RcppExport SEXP _adjClustFast_rcpparma_bothproducts(SEXP xSEXP) {
+// matR_full
+arma::mat matR_full(const arma::mat& Csq, const int& h);
+RcppExport SEXP _adjClustFast_matR_full(SEXP CsqSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
+    Rcpp::traits::input_parameter< const arma::mat& >::type Csq(CsqSEXP);
+    Rcpp::traits::input_parameter< const int& >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(matR_full(Csq, h));
     return rcpp_result_gen;
 END_RCPP
 }
 
+RcppExport SEXP cWardHeaps(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
-    {"_adjClustFast_rcpparma_hello_world", (DL_FUNC) &_adjClustFast_rcpparma_hello_world, 0},
-    {"_adjClustFast_rcpparma_outerproduct", (DL_FUNC) &_adjClustFast_rcpparma_outerproduct, 1},
-    {"_adjClustFast_rcpparma_innerproduct", (DL_FUNC) &_adjClustFast_rcpparma_innerproduct, 1},
-    {"_adjClustFast_rcpparma_bothproducts", (DL_FUNC) &_adjClustFast_rcpparma_bothproducts, 1},
+    {"_adjClustFast_matL_sparse", (DL_FUNC) &_adjClustFast_matL_sparse, 2},
+    {"_adjClustFast_matL_full", (DL_FUNC) &_adjClustFast_matL_full, 2},
+    {"_adjClustFast_matR_sparse", (DL_FUNC) &_adjClustFast_matR_sparse, 2},
+    {"_adjClustFast_matR_full", (DL_FUNC) &_adjClustFast_matR_full, 2},
+    {"cWardHeaps", (DL_FUNC) &cWardHeaps, 11},
     {NULL, NULL, 0}
 };
 
