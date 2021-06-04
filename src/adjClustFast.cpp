@@ -37,7 +37,7 @@ arma::SpMat<double> matL_sparse(const arma::SpMat<double> & Csq, const int & h) 
 	int p = Csq.n_rows;
 	arma::SpMat<double> out(p, h+1);
 
-	#pragma omp parallel for if(parallelism_enabled)              
+	// #pragma omp parallel for if(parallelism_enabled)              
 	for( int i=0; i<p; i++){
 
 		int k = 0;
@@ -66,7 +66,7 @@ arma::mat matL_full(const arma::mat & Csq, const int & h) {
 	int p = Csq.n_rows;
 	arma::mat out(p, h+1);
 
-	#pragma omp parallel for if(parallelism_enabled)                  
+	// #pragma omp parallel for if(parallelism_enabled)                  
 	for( int i=0; i<p; i++){
 		
 		int k = 0;
@@ -97,7 +97,7 @@ arma::SpMat<double> matR_sparse(const arma::SpMat<double> & Csq, const int & h) 
 	int p = Csq.n_rows;
 	arma::SpMat<double> out(p, h+1);
 
-	#pragma omp parallel for if(parallelism_enabled)    
+	// #pragma omp parallel for if(parallelism_enabled)    
 	for( int i=0; i<p; i++){
 		
 		int k = 0;
@@ -126,7 +126,7 @@ arma::mat matR_full(const arma::mat & Csq, const int & h) {
 	int p = Csq.n_rows;
 	arma::mat out(p, h+1);
 
-	#pragma omp parallel for if(parallelism_enabled)    
+	// #pragma omp parallel for if(parallelism_enabled)    
 	for( int i=0; i<p; i++){
 		
 		int k = 0;
