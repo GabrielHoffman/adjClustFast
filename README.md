@@ -2,7 +2,8 @@
 # adjClustFast
 
 This is a faster version of [adjclust](https://cran.r-project.org/package=adjclust) that 
-	- [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo) to remove a bottleneck
+
+	- uses [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo) to remove a bottleneck
 	- reduces memory usage by freeing matrices once they are no longer need
 	- removes expensive checking code
 
